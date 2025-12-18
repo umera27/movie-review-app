@@ -65,7 +65,7 @@ Your application should now be running on `http://localhost:3000`.
 
 ## 🔗 API Reference
 
-Movie APX utilizes the **[OMDb API](http://www.omdbapi.com/)** for fetching movie data. This API is free for educational use, making it a perfect fit for this project.
+Movie Review App utilizes the **[IMDb API](http://www.imdbapi.com/)** for fetching movie data. This API is free for educational use, making it a perfect fit for this project.
 
 ---
 
@@ -83,9 +83,10 @@ This project is licensed under the **MIT License** - see the `LICENSE` file for 
 
 ## 🙏 Acknowledgments
 
-*   Thanks to the **OMDb API** for providing access to movie data.
+*   Thanks to the **IMDb API** for providing access to movie data.
 *   Inspired by the desire to create a user-friendly movie database application.
 
 ---
 
 Happy movie searching! 🍿
+
