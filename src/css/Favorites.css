@@ -1,0 +1,15 @@
+.favorites{
+   padding:20px 40px;
+
+}
+
+.favorites-empty{
+    padding:20px 40px;
+}
+h2{
+    text-align: center;
+    padding:10px;
+}
+p{
+    text-align: center;
+}
