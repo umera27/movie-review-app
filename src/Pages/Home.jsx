@@ -1,5 +1,5 @@
 import Card from "../Components/MovieCard";
-import { useState, useEffect,useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { searchMovies, getPopularMovies } from "../services/api";
 import "../css/Home.css";
 import Prison from "/prison break.jpg";
@@ -8,12 +8,12 @@ import Teen from "/teen wolf.jpg";
 
 function Home() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [isSearchActive, setIsSearchActive] = useState(false); 
+  const [isSearchActive, setIsSearchActive] = useState(false);
   const [movies, setMovies] = useState([]);
   const [popular, setPopular] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  const lastSearchQuery=useRef("")
+  const lastSearchQuery = useRef("");
 
   useEffect(() => {
     const loadPopularMovies = async () => {
@@ -36,7 +36,7 @@ function Home() {
     if (!searchQuery.trim()) return;
 
     setLoading(true);
-    setIsSearchActive(true); 
+    setIsSearchActive(true);
     lastSearchQuery.current = searchQuery;
 
     try {
@@ -46,14 +46,13 @@ function Home() {
     } catch (err) {
       console.log(err);
       setError("Failed to search movies...");
-      setIsSearchActive(false); 
+      setIsSearchActive(false);
     } finally {
       setLoading(false);
     }
     setSearchQuery("");
   };
 
-  
   const clearSearch = () => {
     setIsSearchActive(false);
     setMovies([]);
@@ -73,16 +72,14 @@ function Home() {
           Search
         </button>
         {isSearchActive && (
-          <button 
-            type="button" 
+          <button
+            type="button"
             className="clear-search-button fa-solid fa-arrow-left-long"
             onClick={clearSearch}
-          >
-          </button>
+          ></button>
         )}
       </form>
 
-      
       {!isSearchActive && (
         <div className="movie-hero">
           <div className="hero-title">
@@ -106,50 +103,60 @@ function Home() {
         </div>
       )}
 
-      
       {isSearchActive && (
         <>
-          <h3 style={{
-            color: "white",
-            textAlign: "center",
-            fontSize: "25px",
-            padding: "10px",
-          }}>
+          <h3
+            style={{
+              color: "white",
+              textAlign: "center",
+              fontSize: "25px",
+              padding: "10px",
+            }}
+          >
             Search Results for "{lastSearchQuery.current}"
           </h3>
-          
+
           {error && <div className="error-message">{error}</div>}
 
           {loading ? (
             <div className="loading">Loading...</div>
           ) : movies.length > 0 ? (
             <div className="movies-flex">
-              {movies.map((movie) => (
-                <Card movie={movie} key={movie.id} />
-              ))}
+              {movies
+                .filter(
+                  (movie) =>
+                    movie.id && (movie.backdrop_path || movie.poster_path)
+                )
+                .map((movie) => (
+                  <Card movie={movie} key={movie.id} />
+                ))}
             </div>
           ) : (
-            <div className="no-results" style={{ 
-              color: "white", 
-              textAlign: "center", 
-              padding: "20px" 
-            }}>
+            <div
+              className="no-results"
+              style={{
+                color: "white",
+                textAlign: "center",
+                padding: "20px",
+              }}
+            >
               No movies found. Try a different search.
             </div>
           )}
         </>
       )}
 
-      
-      {(!isSearchActive) && (
+      {!isSearchActive && (
         <>
-          <h3 style={{
-            color: "white",
-            textAlign: "center",
-            fontSize: "25px",
-            padding: "10px",
-            marginTop: isSearchActive ? "40px" : "0"
-          }}>
+          <h3
+            style={{
+              color: "white",
+              textAlign: "center",
+              fontSize: "25px",
+              padding: "10px",
+              marginTop: isSearchActive ? "40px" : "0",
+            }}
+          >
             Popular Movies
           </h3>
 
@@ -167,39 +174,50 @@ function Home() {
         </>
       )}
 
-        <footer className="footer">
+      <footer className="footer">
         <div className="footer-container">
-           
-            <div className="footer-left">
-                <div className="footer-logo">
-                </div>
-                <h4> Discover trending movies, ratings, and detailed info powered by TMDB.</h4>
-                <div className="footer-social">
-                    <a href="#"><i className="fab fa-facebook"></i></a>
-                    <a href="#"><i className="fab fa-instagram"></i></a>
-                    <a href="#"><i className="fab fa-twitter"></i></a>
-                    <a href="#"><i className="fab fa-telegram"></i></a>
-                </div>
-                
+          <div className="footer-left">
+            <div className="footer-logo"></div>
+            <h4>
+              {" "}
+              Discover trending movies, ratings, and detailed info powered by
+              TMDB.
+            </h4>
+            <div className="footer-social">
+              <a href="#">
+                <i className="fab fa-facebook"></i>
+              </a>
+              <a href="#">
+                <i className="fab fa-instagram"></i>
+              </a>
+              <a href="#">
+                <i className="fab fa-twitter"></i>
+              </a>
+              <a href="#">
+                <i className="fab fa-telegram"></i>
+              </a>
             </div>
+          </div>
 
-          
-
-
-            <div className="footer-links">
-                <h4>Legal</h4>
-                <ul>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Service</a></li>
-                    <li><a href="#">Disclaimer</a></li>
-                </ul>
-            </div>
+          <div className="footer-links">
+            <h4>Legal</h4>
+            <ul>
+              <li>
+                <a href="#">Privacy Policy</a>
+              </li>
+              <li>
+                <a href="#">Terms of Service</a>
+              </li>
+              <li>
+                <a href="#">Disclaimer</a>
+              </li>
+            </ul>
+          </div>
         </div>
         <div className="footer-bottom">
-            <p>© 2025 MovieReview. All Rights Reserved.</p>
+          <p>© 2025 MovieReview. All Rights Reserved.</p>
         </div>
-    </footer>
-
+      </footer>
     </div>
   );
 }
